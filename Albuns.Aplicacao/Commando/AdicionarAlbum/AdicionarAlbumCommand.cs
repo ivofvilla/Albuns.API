@@ -13,5 +13,9 @@ namespace Albuns.Aplicacao.Commando.AdicionarAlbum
         public string Banda { get; set; }
         public int QuantidadeFaixas { get; set; }
         public bool Duplo { get; set; }
+        public string CaminhoImagem { get; set; }
+        public DateTime CriadoEm { get; set; }
+        public DateTime AtualizadoEm { get; set; }
+
     }
 }
