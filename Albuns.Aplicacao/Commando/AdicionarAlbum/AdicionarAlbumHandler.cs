@@ -1,6 +1,7 @@
 ﻿using Albuns.Domain.Entidades;
 using Albuns.Domain.Repositorio;
 using FluentValidation;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Albuns.Aplicacao.Commando.AdicionarAlbum
 {
-    public class AdicionarAlbumHandler
+    public class AdicionarAlbumHandler : IRequestHandler<AdicionarAlbumCommand, bool>
     {
         private readonly IAlbumRepository _albumRepository;
         private readonly IValidator<AdicionarAlbumCommand> _validator;

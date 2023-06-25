@@ -1,5 +1,7 @@
-﻿using Albuns.Domain.Repositorio;
+﻿using Albuns.Aplicacao.Commando.ApagarAlbum;
+using Albuns.Domain.Repositorio;
 using FluentValidation;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Albuns.Aplicacao.Commando.AtualizarAlbum
 {
-    public class AtualizarAlbumCommandHandler
+    public class AtualizarAlbumCommandHandler : IRequestHandler<AtualizarAlbumCommand, bool>
     {
         private readonly IAlbumRepository _albumRepository;
         private readonly IValidator<AtualizarAlbumCommand> _validator;

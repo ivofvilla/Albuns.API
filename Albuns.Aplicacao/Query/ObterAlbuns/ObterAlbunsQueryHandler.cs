@@ -1,5 +1,6 @@
 ﻿using Albuns.Domain.Entidades;
 using Albuns.Domain.Repositorio;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Albuns.Aplicacao.Query.ObterAlbuns
 {
-    public class ObterAlbunsQueryHandler
+    public class ObterAlbunsQueryHandler : IRequestHandler<ObterAlbunsQuery, IEnumerable<Album>>
     {
         private readonly IAlbumRepository _albumRepository;
 
@@ -17,11 +18,9 @@ namespace Albuns.Aplicacao.Query.ObterAlbuns
             _albumRepository = albumRepository;
         }
 
-        public async Task<IEnumerable<Album>> Handle(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Album>> Handle(ObterAlbunsQuery request, CancellationToken cancellationToken)
         {
-            var albuns = await _albumRepository.ObterTodosAsync(cancellationToken);
-
-            return albuns;
+            return await _albumRepository.ObterTodosAsync(cancellationToken);
         }
     }
 }

@@ -1,6 +1,8 @@
-﻿using Albuns.Domain.Entidades;
+﻿using Albuns.Aplicacao.Query.ObterAlbuns;
+using Albuns.Domain.Entidades;
 using Albuns.Domain.Repositorio;
 using FluentValidation;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Albuns.Aplicacao.Query.ObterAlbumPorId
 {
-    public class ObterAlbumPorIdQueryHandler
+    public class ObterAlbumPorIdQueryHandler : IRequestHandler<ObterAlbumPorIdQuery, Album>
     {
         private readonly IAlbumRepository _albumRepository;
         private readonly IValidator<ObterAlbumPorIdQuery> _validator;

@@ -10,7 +10,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddMediatR(typeof(Program).Assembly);
 DependencyInjectionConfig.RegisterServices(builder.Services);
 
 var app = builder.Build();

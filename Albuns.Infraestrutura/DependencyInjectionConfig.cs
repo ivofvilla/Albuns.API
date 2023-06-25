@@ -1,4 +1,5 @@
-﻿using Albuns.Aplicacao.Commando.AdicionarAlbum;
+﻿
+using Albuns.Aplicacao.Commando.AdicionarAlbum;
 using Albuns.Aplicacao.Commando.ApagarAlbum;
 using Albuns.Aplicacao.Commando.AtualizarAlbum;
 using Albuns.Aplicacao.Query.ObterAlbumPorId;
@@ -14,13 +15,13 @@ namespace Albuns.Infraestrutura
     {
         public static void RegisterServices(IServiceCollection services)
         {
-            services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
             services.AddScoped<IRequestHandler<AdicionarAlbumCommand, bool>, AdicionarAlbumHandler>();
             services.AddScoped<IRequestHandler<ApagarAlbumCommand, bool>, ApagarAlbumCommandHandler>();
             services.AddScoped<IRequestHandler<AtualizarAlbumCommand, bool>, AtualizarAlbumCommandHandler>();
             services.AddScoped<IRequestHandler<ObterAlbumPorIdQuery, Album>, ObterAlbumPorIdQueryHandler>();
-            services.AddScoped<IRequestHandler<ObterAlbunsQuery, List<Album>>, ObterAlbunsQueryHandler>();
+            services.AddScoped<IRequestHandler<ObterAlbunsQuery, IEnumerable<Album>>, ObterAlbunsQueryHandler>();
         }
     }
 }

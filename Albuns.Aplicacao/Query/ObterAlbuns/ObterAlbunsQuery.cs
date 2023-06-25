@@ -6,10 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Albuns.Aplicacao.Query.ObterAlbumPorId
+namespace Albuns.Aplicacao.Query.ObterAlbuns
 {
-    public class ObterAlbumPorIdQuery : IRequest<Album>
+    public class ObterAlbunsQuery : IRequest<List<Album>>
     {
-        public Guid Id { get; set; }
     }
 }
