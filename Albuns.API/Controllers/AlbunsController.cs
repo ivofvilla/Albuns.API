@@ -4,8 +4,10 @@ using Albuns.Aplicacao.Commando.AtualizarAlbum;
 using Albuns.Aplicacao.Query.ObterAlbumPorId;
 using Albuns.Aplicacao.Query.ObterAlbuns;
 using Albuns.Domain.Entidades;
+using Azure.Storage.Blobs;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata;
 
 namespace Albuns.API.Controllers
 {
@@ -14,10 +16,12 @@ namespace Albuns.API.Controllers
     public class AlbunsController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IConfiguration _configuration;
 
-        public AlbunsController(IMediator mediator)
+        public AlbunsController(IMediator mediator, IConfiguration configuration)
         {
             _mediator = mediator;
+            _configuration = configuration;
         }
 
         [HttpPost]
@@ -26,6 +30,17 @@ namespace Albuns.API.Controllers
             string caminhoArquivo = string.Empty;
             var arquivo = Request.Form.Files.FirstOrDefault();
 
+            //azure
+            var conexao = _configuration.GetSection("ContainerAzure:NomeContainer").ToString();
+            var container = _configuration.GetSection("ContainerAzure:NomeContainer").ToString();
+
+            var blob = new BlobClient(conexao, container, $"{DateTime.Now.Ticks}_{arquivo.FileName}");
+            using (var ms = new MemoryStream(GeraArrayBytes(command.Arquivo.OpenReadStream())))
+            {
+                blob.Upload(ms);
+            }
+
+            //local
             //if (arquivo != null && arquivo.Length > 0)
             //{
             //    caminhoArquivo = Path.Combine("D:\\ZZZ_teste", $"{DateTime.Now.Ticks}_{arquivo.FileName}");
@@ -35,8 +50,8 @@ namespace Albuns.API.Controllers
             //    }
             //}
 
-            //command.SetCaminhoImagem(caminhoArquivo);
-            bool success = true; // await _mediator.Send(command);
+            command.SetCaminhoImagem(blob.Uri.AbsoluteUri);
+            bool success = await _mediator.Send(command);
             if (success)
             {
                 return Ok();
@@ -98,6 +113,16 @@ namespace Albuns.API.Controllers
             var query = new ObterAlbunsQuery();
             var albuns = await _mediator.Send(query);
             return Ok(albuns);
+        }
+        private byte[] GeraArrayBytes(Stream stream)
+        {
+            byte[] result = null;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                stream.CopyTo(ms);
+                result = ms.ToArray();
+            }
+            return result;
         }
     }
 }
