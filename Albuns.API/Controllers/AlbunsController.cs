@@ -20,6 +20,24 @@ namespace Albuns.API.Controllers
             _mediator = mediator;
         }
 
+        [HttpPost("upload")]
+        public async Task<IActionResult> AdicionarAlbum()
+        {
+            string caminhoArquivo = string.Empty;
+            var arquivo = Request.Form.Files.FirstOrDefault();
+
+            if (arquivo != null && arquivo.Length > 0)
+            {
+                caminhoArquivo = Path.Combine("D:\\ZZZ_teste", $"{DateTime.Now.Ticks}_{arquivo.FileName}");
+                using (var stream = new FileStream(caminhoArquivo, FileMode.Create))
+                {
+                    await arquivo.CopyToAsync(stream);
+                }
+            }
+
+            return Ok(caminhoArquivo);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AdicionarAlbum([FromBody] AdicionarAlbumCommand command)
         {

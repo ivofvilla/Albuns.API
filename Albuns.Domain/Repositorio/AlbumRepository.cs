@@ -22,7 +22,7 @@ namespace Albuns.Domain.Repositorio
 
         public async Task<Album> ObterPorIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            string query = "SELECT * FROM Albums WHERE Id = @Id";
+            string query = "SELECT * FROM Albuns WHERE Id = @Id";
             var parameters = new { Id = id };
 
             using (var cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken))
@@ -34,7 +34,7 @@ namespace Albuns.Domain.Repositorio
 
         public async Task<IEnumerable<Album>> ObterTodosAsync(CancellationToken cancellationToken = default)
         {
-            string query = "SELECT * FROM Albums";
+            string query = "SELECT * FROM Albuns";
 
             using (var cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken))
             {
@@ -45,15 +45,19 @@ namespace Albuns.Domain.Repositorio
 
         public async Task AdicionarAsync(Album album, CancellationToken cancellationToken = default)
         {
-            string query = "INSERT INTO Albums (Id, Titulo, Banda, QuantidadeFaixas, Duplo) " +
-                           "VALUES (@Id, @Titulo, @Banda, @QuantidadeFaixas, @Duplo)";
+            string query = "INSERT INTO Albuns (Id, Titulo, Banda, QuantidadeFaixas, Duplo, CaminhoImagem, CriadoEm, AtualizadoEm) " +
+                           "VALUES (@Id, @Titulo, @Banda, @QuantidadeFaixas, @Duplo, @CaminhoImagem, @CriadoEm, @CriadoEm)";
             var parameters = new
             {
-                Id = album.Id,
+                Id = new Guid(),
                 Titulo = album.Titulo,
                 Banda = album.Banda,
                 QuantidadeFaixas = album.QuantidadeFaixas,
-                Duplo = album.Duplo
+                Duplo = album.Duplo,
+                CaminhoImagem = album.CaminhoImagem,
+                CriadoEm = album.CriadoEm,
+                AtualizadoEm = album.CriadoEm
+
             };
 
             using (var cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken))
@@ -65,7 +69,7 @@ namespace Albuns.Domain.Repositorio
 
         public async Task AtualizarAsync(Album album, CancellationToken cancellationToken = default)
         {
-            string query = "UPDATE Albums SET Titulo = @Titulo, Banda = @Banda, QuantidadeFaixas = @QuantidadeFaixas, Duplo = @Duplo " +
+            string query = "UPDATE Albuns SET Titulo = @Titulo, Banda = @Banda, QuantidadeFaixas = @QuantidadeFaixas, Duplo = @Duplo, CaminhoImagem =@CaminhoImagem, AtualizadoEm = @AtualizadoEm  " +
                            "WHERE Id = @Id";
             var parameters = new
             {
@@ -73,7 +77,9 @@ namespace Albuns.Domain.Repositorio
                 Titulo = album.Titulo,
                 Banda = album.Banda,
                 QuantidadeFaixas = album.QuantidadeFaixas,
-                Duplo = album.Duplo
+                Duplo = album.Duplo,
+                CaminhoImagem = album.CaminhoImagem,
+                AtualizadoEm = album.AtualizadoEm
             };
 
             using (var cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken))
@@ -85,7 +91,7 @@ namespace Albuns.Domain.Repositorio
 
         public async Task RemoverAsync(Album album, CancellationToken cancellationToken = default)
         {
-            string query = "DELETE FROM Albums WHERE Id = @Id";
+            string query = "DELETE FROM Albuns WHERE Id = @Id";
             var parameters = new { Id = album.Id };
 
             using (var cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken))
