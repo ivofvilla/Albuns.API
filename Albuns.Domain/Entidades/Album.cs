@@ -5,7 +5,7 @@ namespace Albuns.Domain.Entidades
     {
         public Guid Id { get; set; }
         public string Titulo { get; set; }
-        public string Banda { get; set; }
+        public string Artista { get; set; }
         public int QuantidadeFaixas { get; set; }
         public bool Duplo { get; set; }
         public string CaminhoImagem { get; set; }

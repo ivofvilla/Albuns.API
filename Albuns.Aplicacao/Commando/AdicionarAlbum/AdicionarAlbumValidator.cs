@@ -9,7 +9,7 @@ namespace Albuns.Aplicacao.Commando.AdicionarAlbum
             RuleFor(command => command.Titulo)
                 .NotEmpty().WithMessage("O título do álbum é obrigatório.");
 
-            RuleFor(command => command.Banda)
+            RuleFor(command => command.Artista)
                 .NotEmpty().WithMessage("A banda do álbum é obrigatória.");
 
             RuleFor(command => command.QuantidadeFaixas)

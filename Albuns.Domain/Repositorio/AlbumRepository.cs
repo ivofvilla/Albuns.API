@@ -40,8 +40,8 @@ namespace Albuns.Domain.Repositorio
 
         public async Task AdicionarAsync(Album album, CancellationToken cancellationToken = default)
         {
-            string query = "INSERT INTO Albuns (Id, Titulo, Banda, QuantidadeFaixas, Duplo, CaminhoImagem, CriadoEm, AtualizadoEm) " +
-                           "VALUES (@Id, @Titulo, @Banda, @QuantidadeFaixas, @Duplo, @CaminhoImagem, @CriadoEm, @CriadoEm)";
+            string query = "INSERT INTO Albuns (Id, Titulo, Artista, QuantidadeFaixas, Duplo, CaminhoImagem, CriadoEm, AtualizadoEm) " +
+                           "VALUES (@Id, @Titulo, @Artista, @QuantidadeFaixas, @Duplo, @CaminhoImagem, @CriadoEm, @CriadoEm)";
 
             var data = DateTime.Now;
 
@@ -49,7 +49,7 @@ namespace Albuns.Domain.Repositorio
             {
                 Id = Guid.NewGuid(),
                 Titulo = album.Titulo,
-                Banda = album.Banda,
+                Artista = album.Artista,
                 QuantidadeFaixas = album.QuantidadeFaixas,
                 Duplo = album.Duplo,
                 CaminhoImagem = album.CaminhoImagem,
@@ -67,7 +67,7 @@ namespace Albuns.Domain.Repositorio
 
         public async Task AtualizarAsync(Album album, CancellationToken cancellationToken = default)
         {
-            string query = "UPDATE Albuns SET Titulo = @Titulo, Banda = @Banda, QuantidadeFaixas = @QuantidadeFaixas, Duplo = @Duplo, CaminhoImagem =@CaminhoImagem, AtualizadoEm = @AtualizadoEm  " +
+            string query = "UPDATE Albuns SET Titulo = @Titulo, Artista = @Artista, QuantidadeFaixas = @QuantidadeFaixas, Duplo = @Duplo, CaminhoImagem =@CaminhoImagem, AtualizadoEm = @AtualizadoEm  " +
                            "WHERE Id = @Id";
 
             var data = DateTime.Now;
@@ -76,7 +76,7 @@ namespace Albuns.Domain.Repositorio
             {
                 Id = album.Id,
                 Titulo = album.Titulo,
-                Banda = album.Banda,
+                Banda = album.Artista,
                 QuantidadeFaixas = album.QuantidadeFaixas,
                 Duplo = album.Duplo,
                 CaminhoImagem = album.CaminhoImagem,

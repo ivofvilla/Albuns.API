@@ -38,7 +38,7 @@ namespace Albuns.Aplicacao.Commando.AtualizarAlbum
             }
 
             album.Titulo = command.Titulo;
-            album.Banda = command.Banda;
+            album.Artista = command.Banda;
             album.QuantidadeFaixas = command.QuantidadeFaixas;
             album.Duplo = command.Duplo;
             album.CaminhoImagem = command.CaminhoImagem;

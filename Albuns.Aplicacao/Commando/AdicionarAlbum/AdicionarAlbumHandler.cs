@@ -32,7 +32,7 @@ namespace Albuns.Aplicacao.Commando.AdicionarAlbum
             var album = new Album
             {
                 Titulo = command.Titulo,
-                Banda = command.Banda,
+                Artista = command.Artista,
                 QuantidadeFaixas = command.QuantidadeFaixas,
                 Duplo = command.Duplo,
                 CaminhoImagem = command.CaminhoImagem,
