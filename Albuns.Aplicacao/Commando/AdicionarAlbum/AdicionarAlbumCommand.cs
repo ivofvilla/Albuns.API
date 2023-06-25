@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace Albuns.Aplicacao.Commando.AdicionarAlbum
 {
@@ -11,6 +12,7 @@ namespace Albuns.Aplicacao.Commando.AdicionarAlbum
         public string CaminhoImagem { get; set; }
         public DateTime CriadoEm { get; set; }
         public DateTime AtualizadoEm { get; set; }
+        public IFormFile teste { get; set; }
 
     }
 }

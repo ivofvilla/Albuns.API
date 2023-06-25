@@ -49,7 +49,7 @@ namespace Albuns.Domain.Repositorio
                            "VALUES (@Id, @Titulo, @Banda, @QuantidadeFaixas, @Duplo, @CaminhoImagem, @CriadoEm, @CriadoEm)";
             var parameters = new
             {
-                Id = new Guid(),
+                Id = Guid.NewGuid(),
                 Titulo = album.Titulo,
                 Banda = album.Banda,
                 QuantidadeFaixas = album.QuantidadeFaixas,

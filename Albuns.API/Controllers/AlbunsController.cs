@@ -20,8 +20,8 @@ namespace Albuns.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost("upload")]
-        public async Task<IActionResult> AdicionarAlbum()
+        [HttpPost]
+        public async Task<IActionResult> AdicionarAlbum([FromForm] AdicionarAlbumCommand command)
         {
             string caminhoArquivo = string.Empty;
             var arquivo = Request.Form.Files.FirstOrDefault();
@@ -35,12 +35,7 @@ namespace Albuns.API.Controllers
                 }
             }
 
-            return Ok(caminhoArquivo);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AdicionarAlbum([FromBody] AdicionarAlbumCommand command)
-        {
+            command.CaminhoImagem = caminhoArquivo;
             bool success = await _mediator.Send(command);
             if (success)
             {
