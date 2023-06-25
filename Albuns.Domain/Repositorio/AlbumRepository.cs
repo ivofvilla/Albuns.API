@@ -3,11 +3,6 @@ using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Albuns.Domain.Repositorio
 {
@@ -47,6 +42,9 @@ namespace Albuns.Domain.Repositorio
         {
             string query = "INSERT INTO Albuns (Id, Titulo, Banda, QuantidadeFaixas, Duplo, CaminhoImagem, CriadoEm, AtualizadoEm) " +
                            "VALUES (@Id, @Titulo, @Banda, @QuantidadeFaixas, @Duplo, @CaminhoImagem, @CriadoEm, @CriadoEm)";
+
+            var data = DateTime.Now;
+
             var parameters = new
             {
                 Id = Guid.NewGuid(),
@@ -55,8 +53,8 @@ namespace Albuns.Domain.Repositorio
                 QuantidadeFaixas = album.QuantidadeFaixas,
                 Duplo = album.Duplo,
                 CaminhoImagem = album.CaminhoImagem,
-                CriadoEm = album.CriadoEm,
-                AtualizadoEm = album.CriadoEm
+                CriadoEm = data,
+                AtualizadoEm = data
 
             };
 
@@ -71,6 +69,9 @@ namespace Albuns.Domain.Repositorio
         {
             string query = "UPDATE Albuns SET Titulo = @Titulo, Banda = @Banda, QuantidadeFaixas = @QuantidadeFaixas, Duplo = @Duplo, CaminhoImagem =@CaminhoImagem, AtualizadoEm = @AtualizadoEm  " +
                            "WHERE Id = @Id";
+
+            var data = DateTime.Now;
+
             var parameters = new
             {
                 Id = album.Id,
@@ -79,7 +80,7 @@ namespace Albuns.Domain.Repositorio
                 QuantidadeFaixas = album.QuantidadeFaixas,
                 Duplo = album.Duplo,
                 CaminhoImagem = album.CaminhoImagem,
-                AtualizadoEm = album.AtualizadoEm
+                AtualizadoEm = data
             };
 
             using (var cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken))

@@ -30,6 +30,7 @@ namespace Albuns.Infraestrutura
             services.AddScoped<IRequestHandler<AtualizarAlbumCommand, bool>, AtualizarAlbumCommandHandler>().Reverse();
             services.AddScoped<IRequestHandler<ObterAlbumPorIdQuery, Album>, ObterAlbumPorIdQueryHandler>().Reverse();
             services.AddScoped<IRequestHandler<ObterAlbunsQuery, IEnumerable<Album>>, ObterAlbunsQueryHandler>().Reverse();
+
         }
     }
 }

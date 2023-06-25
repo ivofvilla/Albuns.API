@@ -65,7 +65,7 @@ namespace Albuns.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> AtualizarAlbum(Guid id, [FromBody] AtualizarAlbumCommand command)
         {
-            command.Id = id;
+            command.SetId(id);
             bool success = await _mediator.Send(command);
             if (success)
             {

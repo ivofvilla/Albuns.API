@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Albuns.Aplicacao.Query.ObterAlbuns
 {
-    public class ObterAlbunsQuery : IRequest<List<Album>>
+    public class ObterAlbunsQuery : IRequest<IEnumerable<Album>>
     {
     }
 }

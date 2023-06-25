@@ -42,7 +42,6 @@ namespace Albuns.Aplicacao.Commando.AtualizarAlbum
             album.QuantidadeFaixas = command.QuantidadeFaixas;
             album.Duplo = command.Duplo;
             album.CaminhoImagem = command.CaminhoImagem;
-            album.AtualizadoEm = command.AtualizadoEm;
 
             await _albumRepository.AtualizarAsync(album, cancellationToken);
 
