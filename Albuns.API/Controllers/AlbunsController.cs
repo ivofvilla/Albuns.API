@@ -26,17 +26,17 @@ namespace Albuns.API.Controllers
             string caminhoArquivo = string.Empty;
             var arquivo = Request.Form.Files.FirstOrDefault();
 
-            if (arquivo != null && arquivo.Length > 0)
-            {
-                caminhoArquivo = Path.Combine("D:\\ZZZ_teste", $"{DateTime.Now.Ticks}_{arquivo.FileName}");
-                using (var stream = new FileStream(caminhoArquivo, FileMode.Create))
-                {
-                    await arquivo.CopyToAsync(stream);
-                }
-            }
+            //if (arquivo != null && arquivo.Length > 0)
+            //{
+            //    caminhoArquivo = Path.Combine("D:\\ZZZ_teste", $"{DateTime.Now.Ticks}_{arquivo.FileName}");
+            //    using (var stream = new FileStream(caminhoArquivo, FileMode.Create))
+            //    {
+            //        await arquivo.CopyToAsync(stream);
+            //    }
+            //}
 
-            command.CaminhoImagem = caminhoArquivo;
-            bool success = await _mediator.Send(command);
+            //command.SetCaminhoImagem(caminhoArquivo);
+            bool success = true; // await _mediator.Send(command);
             if (success)
             {
                 return Ok();
