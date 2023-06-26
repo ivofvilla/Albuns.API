@@ -31,8 +31,8 @@ namespace Albuns.API.Controllers
             var arquivo = Request.Form.Files.FirstOrDefault();
 
             //azure
-            var conexao = _configuration.GetSection("ContainerAzure:NomeContainer").ToString();
-            var container = _configuration.GetSection("ContainerAzure:NomeContainer").ToString();
+            var conexao = _configuration.GetSection("ContainerAzure:NomeContainer").Value;
+            var container = _configuration.GetSection("ContainerAzure:ConectionString").Value;
 
             var blob = new BlobClient(conexao, container, $"{DateTime.Now.Ticks}_{arquivo.FileName}");
             using (var ms = new MemoryStream(GeraArrayBytes(command.Arquivo.OpenReadStream())))
@@ -50,7 +50,7 @@ namespace Albuns.API.Controllers
             //    }
             //}
 
-            command.SetCaminhoImagem(blob.Uri.AbsoluteUri);
+            //command.SetCaminhoImagem(blob.Uri.AbsoluteUri);
             bool success = await _mediator.Send(command);
             if (success)
             {

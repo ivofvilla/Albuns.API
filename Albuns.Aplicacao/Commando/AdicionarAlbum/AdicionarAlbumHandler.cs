@@ -35,7 +35,7 @@ namespace Albuns.Aplicacao.Commando.AdicionarAlbum
                 Artista = command.Artista,
                 QuantidadeFaixas = command.QuantidadeFaixas,
                 Duplo = command.Duplo,
-                CaminhoImagem = command.CaminhoImagem,
+                //CaminhoImagem = command.CaminhoImagem,
             };
 
             await _albumRepository.AdicionarAsync(album, cancellationToken);
