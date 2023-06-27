@@ -9,10 +9,10 @@ namespace Albuns.Aplicacao.Commando.AdicionarAlbum
         public string Artista { get; set; }
         public int QuantidadeFaixas { get; set; }
         public bool Duplo { get; set; }
-        //public string CaminhoImagem { get; private set; }
+        public string CaminhoImagem { get; set; }
         public IFormFile Arquivo { get; set; }
 
-        //public void SetCaminhoImagem(string caminhoImagem) => CaminhoImagem = caminhoImagem;
+        public void SetCaminhoImagem(string caminhoImagem) => CaminhoImagem = caminhoImagem;
 
     }
 }

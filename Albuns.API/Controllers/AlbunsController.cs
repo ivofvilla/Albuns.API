@@ -24,33 +24,22 @@ namespace Albuns.API.Controllers
             _configuration = configuration;
         }
 
-        [HttpPost]
+        [HttpPost("Adicionar")]
         public async Task<IActionResult> AdicionarAlbum([FromForm] AdicionarAlbumCommand command)
         {
             string caminhoArquivo = string.Empty;
-            var arquivo = Request.Form.Files.FirstOrDefault();
 
             //azure
-            var conexao = _configuration.GetSection("ContainerAzure:NomeContainer").Value;
-            var container = _configuration.GetSection("ContainerAzure:ConectionString").Value;
-
-            var blob = new BlobClient(conexao, container, $"{DateTime.Now.Ticks}_{arquivo.FileName}");
+            var conexao = _configuration.GetSection("ContainerAzure:ConectionString").Value;
+            var container = _configuration.GetSection("ContainerAzure:NomeContainer").Value;
+            string nome = $"{DateTime.Now.Ticks}_{command.Arquivo.FileName}";
+            var blob = new BlobClient(conexao, container, nome);
             using (var ms = new MemoryStream(GeraArrayBytes(command.Arquivo.OpenReadStream())))
             {
                 blob.Upload(ms);
             }
 
-            //local
-            //if (arquivo != null && arquivo.Length > 0)
-            //{
-            //    caminhoArquivo = Path.Combine("D:\\ZZZ_teste", $"{DateTime.Now.Ticks}_{arquivo.FileName}");
-            //    using (var stream = new FileStream(caminhoArquivo, FileMode.Create))
-            //    {
-            //        await arquivo.CopyToAsync(stream);
-            //    }
-            //}
-
-            //command.SetCaminhoImagem(blob.Uri.AbsoluteUri);
+            command.CaminhoImagem = blob.Uri.AbsoluteUri;
             bool success = await _mediator.Send(command);
             if (success)
             {

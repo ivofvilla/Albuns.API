@@ -47,7 +47,7 @@ namespace Albuns.Domain.Repositorio
 
             var parameters = new
             {
-                Id = Guid.NewGuid(),
+                Id = album.Id,
                 Titulo = album.Titulo,
                 Artista = album.Artista,
                 QuantidadeFaixas = album.QuantidadeFaixas,
